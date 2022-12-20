@@ -1,17 +1,27 @@
 package com.example.qrcodescanner;
 
+import static com.example.qrcodescanner.ScanCode.builder;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.SearchManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.LuminanceSource;
 import com.google.zxing.MultiFormatReader;
@@ -25,22 +35,27 @@ import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
 
-    ImageButton button;
+    Button camera;
     Toolbar toolbar;
+    AlertDialog.Builder builder1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         toolbar=findViewById(R.id.appbar);
         setSupportActionBar(toolbar);
-        button= (ImageButton) findViewById(R.id.camera);
+        camera= (Button) findViewById(R.id.camera);
+        builder1=new AlertDialog.Builder(MainActivity.this);
 
-        button.setOnClickListener(view -> {
+        camera.setOnClickListener(view -> {
             Intent intent= new Intent(getApplicationContext(),ScanCode.class);
             startActivity(intent);
         });
-
-
+        if(builder!=null)
+        {
+            AlertDialog alertDialog=builder.create();
+            alertDialog.show();
+        }
     }
 
     public void btnbrowse(View view) {
@@ -60,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
                 final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
                 try {
                     Bitmap bMap = selectedImage;
-                    String contents = null;
 
                     int[] intArray = new int[bMap.getWidth()*bMap.getHeight()];
                     bMap.getPixels(intArray, 0, bMap.getWidth(), 0, 0, bMap.getWidth(), bMap.getHeight());
@@ -70,9 +84,30 @@ public class MainActivity extends AppCompatActivity {
 
                     Reader reader = new MultiFormatReader();
                     Result result = reader.decode(bitmap);
-                    contents = result.getText();
-                    Toast.makeText(getApplicationContext(),contents,Toast.LENGTH_LONG).show();
 
+                    if (result!=null)
+                    {
+                        String t1="Would you like to go to: '";
+                        String t2="'?";
+                        builder1.setMessage(t1+result.getText()+t2)
+                                .setTitle("Alert")
+                                .setCancelable(false)
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        finish();
+                                        Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
+                                        intent.putExtra(SearchManager.QUERY, String.valueOf(result));
+                                        startActivity(intent);
+                                    }
+                                });
+                        builder1.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+                        AlertDialog alertDialog=builder1.create();
+                        alertDialog.show();
+                    }
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -89,6 +124,4 @@ public class MainActivity extends AppCompatActivity {
 
     private void setSupportActionBar(Toolbar toolbar) {
     }
-
-
 }
