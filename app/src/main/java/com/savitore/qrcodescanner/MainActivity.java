@@ -1,9 +1,7 @@
-package com.example.qrcodescanner;
+package com.savitore.qrcodescanner;
 
-import static com.example.qrcodescanner.ScanCode.builder;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
+import static com.savitore.qrcodescanner.ScanCode.builder;
 
 import android.app.SearchManager;
 import android.content.DialogInterface;
@@ -17,11 +15,9 @@ import android.widget.Button;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.LuminanceSource;
 import com.google.zxing.MultiFormatReader;

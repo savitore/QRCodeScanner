@@ -1,4 +1,4 @@
-package com.example.qrcodescanner;
+package com.savitore.qrcodescanner;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,7 +8,6 @@ import android.app.SearchManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.google.zxing.Result;
 import com.karumi.dexter.Dexter;

@@ -1,4 +1,4 @@
-package com.example.qrcodescanner;
+package com.savitore.qrcodescanner;
 
 import org.junit.Test;
 
