@@ -7,9 +7,9 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@drawable/qr"
+        android:icon="@mipmap/logo"
         android:label="QR Code Scanner"
-        android:roundIcon="@drawable/qr"
+        android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.QRcodeScanner"
         tools:targetApi="31">
@@ -33,9 +33,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-7650007136158157~4315526284"/>
     </application>
 
 </manifest>
