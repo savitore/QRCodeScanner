@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         toolbar=findViewById(R.id.appbar);
         setSupportActionBar(toolbar);
-        camera= (Button) findViewById(R.id.camera);
+        camera= findViewById(R.id.camera);
         builder1=new AlertDialog.Builder(MainActivity.this);
 
         camera.setOnClickListener(view -> {
@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }else {
-            Toast.makeText(MainActivity.this, "You haven't picked Image",Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, "You haven't picked an image",Toast.LENGTH_LONG).show();
         }
     }
 
